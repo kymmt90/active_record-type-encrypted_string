@@ -9,9 +9,9 @@ Gem::Specification.new do |spec|
   spec.version     = ActiveRecord::Type::EncryptedString::VERSION
   spec.authors     = ["Kohei Yamamoto"]
   spec.email       = ["kymmt90@gmail.com"]
-  spec.homepage    = "TODO"
-  spec.summary     = "TODO: Summary of ActiveRecord::Type::EncryptedString."
-  spec.description = "TODO: Description of ActiveRecord::Type::EncryptedString."
+  spec.homepage    = "https://github.com/kymmt90/active_record-type-encrypted_string"
+  spec.summary     = "ActiveRecord::Type::EncryptedString"
+  spec.description = "Provides encrypted string attributes to Active Record models"
   spec.license     = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
