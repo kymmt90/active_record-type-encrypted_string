@@ -3,7 +3,7 @@ require 'test_helper'
 class UserTest < ActiveSupport::TestCase
   setup do
     ENV['ENCRYPTED_STRING_PASSWORD'] = 'passworrd'
-    ENV['ENCRYPTED_STRING_SALT'] = SecureRandom.random_bytes
+    ENV['ENCRYPTED_STRING_SALT'] = '^]\x9E@\xB7eZ\xDD\xC0\xEC>$\a/\x1Cw'
   end
 
   teardown do
