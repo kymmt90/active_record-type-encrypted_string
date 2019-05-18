@@ -1,5 +1,7 @@
 # ActiveRecord::Type::EncryptedString
 
+[![Build Status](https://travis-ci.org/kymmt90/active_record-type-encrypted_string.svg?branch=master)](https://travis-ci.org/kymmt90/active_record-type-encrypted_string)
+
 > Provides encrypted string attributes to Active Record models
 
 ActiveRecord::Type::EncryptedString is a subtype of ActiveRecord::Type::String. This gem enables Active Record to encrypt/decrypt string attributes seamlessly.
