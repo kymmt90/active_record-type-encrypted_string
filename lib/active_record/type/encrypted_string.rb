@@ -1,9 +1,14 @@
 require 'active_record/type'
 require 'active_record/type/encrypted_string/railtie'
+require 'active_support/configurable'
 
 module ActiveRecord
   module Type
     module EncryptedString
+      include ActiveSupport::Configurable
+
+      config_accessor :encryption_password, :encryption_salt, instance_accessor: false
+
       class Type < ::ActiveRecord::Type::String
         def cast(value)
           value ? message_encryptor.encrypt_and_sign(value) : super
@@ -25,11 +30,11 @@ module ActiveRecord
         end
 
         def password
-          ENV['ENCRYPTED_STRING_PASSWORD']
+          ENV.fetch('ENCRYPTED_STRING_PASSWORD') { ActiveRecord::Type::EncryptedString.encryption_password }
         end
 
         def salt
-          ENV['ENCRYPTED_STRING_SALT']
+          ENV.fetch('ENCRYPTED_STRING_SALT') { ActiveRecord::Type::EncryptedString.encryption_salt }
         end
       end
     end

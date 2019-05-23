@@ -71,6 +71,19 @@ Or install it yourself as:
 $ gem install active_record-type-encrypted_string
 ```
 
+## Configuration
+
+The password and the salt for encryption can be configured through environment variables or class attributes. Environment variables take precedence over class attributes.
+
+```ruby
+ENV['ENCRYPTED_STRING_PASSWORD'] = 'password'
+ENV['ENCRYPTED_STRING_SALT'] = 'salt'
+
+
+ActiveRecord::Type::EncryptedString.encryption_password = 'password'
+ActiveRecord::Type::EncryptedString.encryption_salt = 'salt'
+```
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/kymmt90/active_record-type-encrypted_string.
