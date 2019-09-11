@@ -20,6 +20,16 @@ class UserTest < ActiveSupport::TestCase
       assert_equal token, user.token
       assert_not_equal token, encrypted_token
     end
+
+    test 'should decrypt the saved token after the record was updated' do
+      token = SecureRandom.base64
+      user = User.create(token: token)
+      user.update!(created_at: Time.now)
+      encrypted_token = ActiveRecord::Base.connection.select_value('SELECT token FROM users')
+
+      assert_equal token, user.token
+      assert_not_equal token, encrypted_token
+    end
   end
 
   class WhenCredentialsAreSetToConfig < ActiveSupport::TestCase

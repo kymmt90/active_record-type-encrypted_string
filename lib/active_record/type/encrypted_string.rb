@@ -10,7 +10,7 @@ module ActiveRecord
       config_accessor :encryption_password, :encryption_salt, instance_accessor: false
 
       class Type < ::ActiveRecord::Type::String
-        def cast(value)
+        def serialize(value)
           value ? message_encryptor.encrypt_and_sign(value) : super
         end
 
