@@ -1,30 +1,40 @@
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
-  test 'when credentials are set to ENV, encrypt the saved token and decrypt it through the getter' do
-    ENV['ENCRYPTED_STRING_PASSWORD'] = 'passworrd'
-    ENV['ENCRYPTED_STRING_SALT'] = '^]\x9E@\xB7eZ\xDD\xC0\xEC>$\a/\x1Cw'
+  class WhenCredentialsAreSetToEnv < ActiveSupport::TestCase
+    setup do
+      ENV['ENCRYPTED_STRING_PASSWORD'] = 'passworrd'
+      ENV['ENCRYPTED_STRING_SALT'] = '^]\x9E@\xB7eZ\xDD\xC0\xEC>$\a/\x1Cw'
+    end
 
-    token = SecureRandom.base64
-    user = User.create(token: token)
-    encrypted_token = ActiveRecord::Base.connection.select_value('SELECT token FROM users')
+    teardown do
+      ENV.delete 'ENCRYPTED_STRING_PASSWORD'
+      ENV.delete 'ENCRYPTED_STRING_SALT'
+    end
 
-    assert_equal token, user.token
-    assert_not_equal token, encrypted_token
+    test 'encrypt the saved token and decrypt it through the getter' do
+      token = SecureRandom.base64
+      user = User.create(token: token)
+      encrypted_token = ActiveRecord::Base.connection.select_value('SELECT token FROM users')
 
-    ENV.delete 'ENCRYPTED_STRING_PASSWORD'
-    ENV.delete 'ENCRYPTED_STRING_SALT'
+      assert_equal token, user.token
+      assert_not_equal token, encrypted_token
+    end
   end
 
-  test 'when credentials are set to config, encrypt the saved token and decrypt it through the getter' do
-    ActiveRecord::Type::EncryptedString.encryption_password = 'passworrd'
-    ActiveRecord::Type::EncryptedString.encryption_salt = 'salt'
+  class WhenCredentialsAreSetToConfig < ActiveSupport::TestCase
+    setup do
+      ActiveRecord::Type::EncryptedString.encryption_password = 'passworrd'
+      ActiveRecord::Type::EncryptedString.encryption_salt = 'salt'
+    end
 
-    token = SecureRandom.base64
-    user = User.create(token: token)
-    encrypted_token = ActiveRecord::Base.connection.select_value('SELECT token FROM users')
+    test 'encrypt the saved token and decrypt it through the getter' do
+      token = SecureRandom.base64
+      user = User.create(token: token)
+      encrypted_token = ActiveRecord::Base.connection.select_value('SELECT token FROM users')
 
-    assert_equal token, user.token
-    assert_not_equal token, encrypted_token
+      assert_equal token, user.token
+      assert_not_equal token, encrypted_token
+    end
   end
 end
