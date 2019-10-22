@@ -1,6 +1,6 @@
 # ActiveRecord::Type::EncryptedString
 
-[![Gem Version](https://badge.fury.io/rb/active_record-type-encrypted_string.svg)](https://badge.fury.io/rb/active_record-type-encrypted_string) [![Build Status](https://travis-ci.org/kymmt90/active_record-type-encrypted_string.svg?branch=master)](https://travis-ci.org/kymmt90/active_record-type-encrypted_string)
+[![Gem Version](https://badge.fury.io/rb/active_record-type-encrypted_string.svg)](https://badge.fury.io/rb/active_record-type-encrypted_string) [![Build Status](https://github.com/kymmt90/active_record-type-encrypted_string/workflows/build/badge.svg)](https://github.com/kymmt90/active_record-type-encrypted_string/actions?workflow=build)
 
 > Provides encrypted string attributes to Active Record models
 
